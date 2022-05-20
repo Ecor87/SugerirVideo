@@ -1,10 +1,10 @@
 //crea función IIFE asigna la url del video a el elemento html con la id proporcionada
-let privada = (() => {
+let asignadoraMain = (() => {
     let asignacion = (urlPriv,idPriv) => {
         document.getElementById(idPriv).setAttribute('src',urlPriv);
     }
     return{
-        publica: (urlPub,idPub) => {
+        recibidora: (urlPub,idPub) => {
             asignacion(urlPub,idPub);
         } 
     } 
@@ -32,14 +32,14 @@ class Reproductor extends Multimedia{
         super(url);
         this.id = id;
     }
-    //llama a función publica dentro de función privada con los parámetros ingresados a la instancia de Reproductor
+    //llama a función recibidora dentro de función asignadoraMain con los parámetros ingresados a la instancia de Reproductor
     playMultimedia = () => {
-        privada.publica(this.url,this.id);
+        asignadoraMain.recibidora(this.url,this.id);
     }
-    //llama a función publica dentro de función privada con los parámetros ingresados a la instancia de Reproductor, agrega un sufijo a la url ingresada para indicar retraso a la reproducción
+    //llama a función recibidora dentro de función asignadoraMain con los parámetros ingresados a la instancia de Reproductor, agrega un sufijo a la url ingresada para indicar retraso a la reproducción
     setInicio = (tiempo) => {
         let urlTiempo = this.url.concat(`?start=${tiempo}`);
-        privada.publica(urlTiempo,this.id);
+        asignadoraMain.recibidora(urlTiempo,this.id);
         return urlTiempo;
     }
 }
